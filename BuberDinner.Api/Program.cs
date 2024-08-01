@@ -1,5 +1,4 @@
 
-using BuberDinner.Api.Middleware;
 using BuberDinner.Application;
 using BuberDinner.Infrastructure;
 
