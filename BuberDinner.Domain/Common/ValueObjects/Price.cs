@@ -1,6 +1,6 @@
 using BuberDinner.Domain.Common.Models;
 
-namespace BuberDinner.Domain.Bill.ValueObjects;
+namespace BuberDinner.Domain.Common.ValueObjects;
 
 public class Price : ValueObject
 {
