@@ -15,7 +15,7 @@ public class Reservation : Entity<ReservationId>
     public DateTime CreatedDateTime { get; }
     public DateTime UpdatedDateTime { get; }
 
-    public Reservation(
+    private Reservation(
         ReservationId reservationId,
         int guestCount,
         string reservationStatus,

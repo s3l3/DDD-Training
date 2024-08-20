@@ -6,7 +6,7 @@ public sealed class MenuItemId : ValueObject
 {
     public Guid Value { get; }
 
-    public MenuItemId(Guid value)
+    private MenuItemId(Guid value)
     {
         Value = value;
     }

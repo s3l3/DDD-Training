@@ -25,7 +25,7 @@ public sealed class Menu : AggregateRoot<MenuId>
     public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.ToList();
 
 
-    public Menu(
+    private Menu(
         MenuId id,
         string name,
         string description,
