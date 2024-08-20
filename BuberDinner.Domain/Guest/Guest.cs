@@ -9,7 +9,7 @@ using BuberDinner.Domain.User.ValueObjects;
 
 namespace BuberDinner.Domain.Guest;
 
-public class Guest : AggregateRoot<GuestId>
+public sealed class Guest : AggregateRoot<GuestId>
 {
     public string FirstName { get; }
     public string LastName { get; }

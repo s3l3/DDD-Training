@@ -1,6 +1,3 @@
-using System.Net.Http.Headers;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
 using BuberDinner.Domain.Common.Models;
 using BuberDinner.Domain.Common.ValueObjects;
 using BuberDinner.Domain.Dinner.ValueObjects;
@@ -10,7 +7,7 @@ using BuberDinner.Domain.User.ValueObjects;
 
 namespace BuberDinner.Domain.Host;
 
-public class Host : AggregateRoot<HostId>
+public sealed class Host : AggregateRoot<HostId>
 {
     private List<MenuId> _menuIds = new();
     private List<DinnerId> _dinnerIds = new();

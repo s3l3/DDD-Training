@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using BuberDinner.Domain.Common.Models;
 using BuberDinner.Domain.Common.ValueObjects;
 using BuberDinner.Domain.Dinner.ValueObjects;
@@ -7,7 +6,7 @@ using BuberDinner.Domain.Menu.ValueObjects;
 
 namespace BuberDinner.Domain.Dinner;
 
-public class Dinner : AggregateRoot<DinnerId>
+public sealed class Dinner : AggregateRoot<DinnerId>
 {
     public string Name { get; }
     public string Description { get; }

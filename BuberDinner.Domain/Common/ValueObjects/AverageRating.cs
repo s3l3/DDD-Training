@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using BuberDinner.Domain.Common.Models;
 
 namespace BuberDinner.Domain.Common.ValueObjects;
 
-public class AverageRating : ValueObject
+public sealed class AverageRating : ValueObject
 {
     public double Value { get; private set; }
 

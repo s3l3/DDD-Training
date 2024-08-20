@@ -5,7 +5,7 @@ using BuberDinner.Domain.Guest.ValueObjects;
 
 namespace BuberDinner.Domain.Dinner;
 
-public class Reservation : Entity<ReservationId>
+public sealed class Reservation : Entity<ReservationId>
 {
     public int GuestCount { get; }
     public string ReservationStatus { get; }

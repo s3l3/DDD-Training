@@ -29,13 +29,13 @@ public class RegisterCommandHandler :
             return Errors.User.DuplicateEmail;
         }
 
-        User user = new User()
-        {
-            Email = request.Email,
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            Password = request.Password
-        };
+        User user = User.Create
+        (
+           request.Email,
+           request.Password,
+           request.FirstName,
+           request.LastName
+        );
 
         _userRepository.Add(user);
 

@@ -2,7 +2,7 @@ using BuberDinner.Domain.Common.Models;
 
 namespace BuberDinner.Domain.Guest.ValueObjects;
 
-public class RatingId : ValueObject
+public sealed class RatingId : ValueObject
 {
     public Guid Value { get; }
 
