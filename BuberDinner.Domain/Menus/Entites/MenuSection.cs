@@ -5,10 +5,19 @@ namespace BuberDinner.Domain.Menus.Entites;
 
 public sealed class MenuSection : Entity<MenuSectionId>
 {
-    public string Name { get; }
-    public string Description { get; }
     private readonly List<MenuItem> _items = new();
+
+    public string Name { get; private set; }
+
+    public string Description { get; private set; }
+
     public IReadOnlyList<MenuItem> Items => _items.AsReadOnly();
+
+#pragma warning disable CS8618
+    private MenuSection()
+    {
+    }
+#pragma warning restore CS8618
 
     private MenuSection(
         MenuSectionId id,

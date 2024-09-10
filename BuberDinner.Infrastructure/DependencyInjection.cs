@@ -1,4 +1,3 @@
-
 using System.Text;
 
 using BuberDinner.Application.Common.Interfaces.Authentication;
@@ -6,9 +5,11 @@ using BuberDinner.Application.Common.Interfaces.Persistence;
 using BuberDinner.Application.Common.Interfaces.Services;
 using BuberDinner.Infrastructure.Authentication;
 using BuberDinner.Infrastructure.Persistence;
+using BuberDinner.Infrastructure.Persistence.Repositories;
 using BuberDinner.Infrastructure.Services;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -18,6 +19,8 @@ namespace BuberDinner.Infrastructure;
 
 public static class DependencyInjection
 {
+    private const string CONNECTION_STRING = "server=localhost;database=BuberDinner;user=dddtest;password=dddtestpass123!";
+
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
         ConfigurationManager configuration)
@@ -33,9 +36,11 @@ public static class DependencyInjection
 
     private static IServiceCollection AddPersistance(this IServiceCollection services)
     {
-        return services
-            .AddScoped<IUserRepository, InMemoryUserRepository>()
-            .AddScoped<IMenuRepository, InMemoryMenuRepository>();
+        services.AddDbContext<BubberDinnerDbContext>(options => options.UseMySQL(CONNECTION_STRING));
+        services.AddScoped<IUserRepository, InMemoryUserRepository>();
+        services.AddScoped<IMenuRepository, MenuRepository>();
+
+        return services;
     }
 
     private static IServiceCollection AddAuth(

@@ -1,4 +1,3 @@
-
 using BuberDinner.Api;
 using BuberDinner.Application;
 using BuberDinner.Infrastructure;
@@ -22,4 +21,3 @@ var app = builder.Build();
     app.MapControllers();
     app.Run();
 }
-

@@ -10,20 +10,6 @@ namespace BuberDinner.Domain.Menus;
 
 public sealed class Menu : AggregateRoot<MenuId>
 {
-    public string Name { get; }
-    public string Description { get; }
-    public AverageRating AverageRating { get; }
-    private readonly List<MenuSection> _menuSections = new();
-    public IReadOnlyList<MenuSection> MenuSections => _menuSections.ToList();
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
-    public HostId HostId { get; }
-    private readonly List<DinnerId> _dinnerIds = new();
-    public IReadOnlyList<DinnerId> DinnerIds => _dinnerIds.ToList();
-    private readonly List<MenuReviewId> _menuReviewIds = new();
-    public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.ToList();
-
-
     private Menu(
         MenuId id,
         string name,
@@ -38,10 +24,32 @@ public sealed class Menu : AggregateRoot<MenuId>
         Description = description;
         AverageRating = averageRating;
         HostId = hostId;
-        _menuSections = menuSections;
+        _sections = menuSections;
         CreatedDateTime = createdDateTime;
         UpdatedDateTime = updatedDateTime;
     }
+
+    private readonly List<MenuSection> _sections = new();
+    private readonly List<DinnerId> _dinnerIds = new();
+    private readonly List<MenuReviewId> _menuReviewIds = new();
+
+    public string Name { get; private set; }
+
+    public string Description { get; private set; }
+
+    public AverageRating AverageRating { get; private set; }
+
+    public DateTime CreatedDateTime { get; private set; }
+
+    public DateTime UpdatedDateTime { get; private set; }
+
+    public HostId HostId { get; private set; }
+
+    public IReadOnlyList<MenuSection> Sections => _sections.ToList();
+
+    public IReadOnlyList<DinnerId> DinnerIds => _dinnerIds.ToList();
+
+    public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.ToList();
 
     public static Menu Create(
         string name,
@@ -59,4 +67,8 @@ public sealed class Menu : AggregateRoot<MenuId>
             DateTime.UtcNow,
             DateTime.UtcNow);
     }
+
+#pragma warning disable CS8618
+    private Menu() { }
+#pragma warning restore CS8618
 }
