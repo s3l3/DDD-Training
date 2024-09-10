@@ -3,14 +3,23 @@ using BuberDinner.Domain.Users.ValueObjects;
 
 namespace BuberDinner.Domain.Users;
 
-public sealed class User : AggregateRoot<UserId>
+public sealed class User : AggregateRoot<UserId, Guid>
 {
-    public string Email { get; }
-    public string Password { get; }
-    public string FirstName { get; }
-    public string LastName { get; }
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public string Email { get; private set; }
+
+    public string Password { get; private set; }
+
+    public string FirstName { get; private set; }
+
+    public string LastName { get; private set; }
+
+    public DateTime CreatedDateTime { get; private set; }
+
+    public DateTime UpdatedDateTime { get; private set; }
+
+#pragma warning disable CS8618
+    private User() { }
+#pragma warning restore CS8618
 
     private User(
         UserId userId,
@@ -43,4 +52,5 @@ public sealed class User : AggregateRoot<UserId>
             DateTime.UtcNow,
             DateTime.UtcNow);
     }
+
 }

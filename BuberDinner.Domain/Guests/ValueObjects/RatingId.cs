@@ -6,6 +6,8 @@ public sealed class RatingId : ValueObject
 {
     public Guid Value { get; }
 
+    private RatingId() { }
+
     private RatingId(Guid value)
     {
         Value = value;

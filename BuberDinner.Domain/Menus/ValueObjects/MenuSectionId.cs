@@ -6,6 +6,8 @@ public sealed class MenuSectionId : ValueObject
 {
     public Guid Value { get; }
 
+    private MenuSectionId() { }
+
     private MenuSectionId(Guid value)
     {
         Value = value;
@@ -27,6 +29,4 @@ public sealed class MenuSectionId : ValueObject
             yield return Value;
         }
     }
-
-    private MenuSectionId() { }
 }

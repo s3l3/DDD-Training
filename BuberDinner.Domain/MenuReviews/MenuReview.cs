@@ -7,17 +7,27 @@ using BuberDinner.Domain.MenuReviews.ValueObjects;
 
 namespace BuberDinner.Domain.MenuReviews;
 
-public sealed class MenuReview : AggregateRoot<MenuReviewId>
+public sealed class MenuReview : AggregateRoot<MenuReviewId, Guid>
 {
+    public int Rating { get; private set; }
 
-    public int Rating { get; }
-    public string Comment { get; }
-    public HostId HostId { get; }
-    public MenuId MenuId { get; }
-    public GuestId GuestId { get; }
-    public DinnerId DinnerId { get; }
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public string Comment { get; private set; }
+
+    public HostId HostId { get; private set; }
+
+    public MenuId MenuId { get; private set; }
+
+    public GuestId GuestId { get; private set; }
+
+    public DinnerId DinnerId { get; private set; }
+
+    public DateTime CreatedDateTime { get; private set; }
+
+    public DateTime UpdatedDateTime { get; private set; }
+
+#pragma warning disable CS8618
+    private MenuReview() { }
+#pragma warning restore CS8618
 
     private MenuReview(
         MenuReviewId menuReviewId,

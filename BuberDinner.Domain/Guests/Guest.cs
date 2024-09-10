@@ -9,27 +9,44 @@ using BuberDinner.Domain.Users.ValueObjects;
 
 namespace BuberDinner.Domain.Guests;
 
-public sealed class Guest : AggregateRoot<GuestId>
+public sealed class Guest : AggregateRoot<GuestId, Guid>
 {
-    public string FirstName { get; }
-    public string LastName { get; }
-    public string ProfileImage { get; }
-    public AverageRating AverageRating { get; }
+    private readonly List<DinnerId> _upcomingDinnerIds = new();
+    private readonly List<DinnerId> _pastDinnerIds = new();
+    private readonly List<DinnerId> _pendingDinnerIds = new();
+    private readonly List<BillId> _billIds = new();
+    private readonly List<MenuReviewId> _menuReviewIds = new();
+    private readonly List<RatingEntity> _ratings = new();
+
+    public string FirstName { get; private set; }
+
+    public string LastName { get; private set; }
+
+    public string ProfileImage { get; private set; }
+
+    public AverageRating AverageRating { get; private set; }
+
     public UserId UserId { get; set; }
-    private List<DinnerId> _upcomingDinnerIds = new();
-    public IReadOnlyList<DinnerId> UpcomingDinnerIds => _upcomingDinnerIds.ToList();
-    private List<DinnerId> _pastDinnerIds = new();
-    public IReadOnlyList<DinnerId> PastDinnerIds => _pastDinnerIds.ToList();
-    private List<DinnerId> _pendingDinnerIds = new();
-    public IReadOnlyList<DinnerId> PendingDinnerIds => _pendingDinnerIds.ToList();
-    private List<BillId> _billIds = new();
-    public IReadOnlyList<BillId> BillIds => _billIds.ToList();
-    private List<MenuReviewId> _menuReviewIds = new();
-    public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.ToList();
-    private List<RatingEntity> _ratings = new();
-    public IReadOnlyList<RatingEntity> Ratings => _ratings.ToList();
+
     public DateTime CreatedDateTime { get; }
+
     public DateTime UpdatedDateTime { get; }
+
+    public IReadOnlyList<DinnerId> UpcomingDinnerIds => _upcomingDinnerIds.ToList();
+
+    public IReadOnlyList<DinnerId> PastDinnerIds => _pastDinnerIds.ToList();
+
+    public IReadOnlyList<DinnerId> PendingDinnerIds => _pendingDinnerIds.ToList();
+
+    public IReadOnlyList<BillId> BillIds => _billIds.ToList();
+
+    public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.ToList();
+
+    public IReadOnlyList<RatingEntity> Ratings => _ratings.ToList();
+
+#pragma warning disable CS8618
+    private Guest() { }
+#pragma warning restore CS8618
 
     private Guest(
         GuestId guestId,

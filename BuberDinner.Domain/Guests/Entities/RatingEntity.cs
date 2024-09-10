@@ -7,11 +7,19 @@ namespace BuberDinner.Domain.Guests.Entities;
 
 public sealed class RatingEntity : Entity<RatingId>
 {
-    public HostId HostId { get; }
-    public DinnerId DinnerId { get; }
-    public int RatingValue { get; }
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public HostId HostId { get; private set; }
+
+    public DinnerId DinnerId { get; private set; }
+
+    public int RatingValue { get; private set; }
+
+    public DateTime CreatedDateTime { get; private set; }
+
+    public DateTime UpdatedDateTime { get; private set; }
+
+#pragma warning disable CS8618
+    private RatingEntity() { }
+#pragma warning restore CS8618
 
     private RatingEntity(
         RatingId ratingId,

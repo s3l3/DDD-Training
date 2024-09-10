@@ -4,11 +4,17 @@ namespace BuberDinner.Domain.Dinners.ValueObjects;
 
 public class Location : ValueObject
 {
+    public string Name { get; private set; }
 
-    public string Name { get; }
-    public string Address { get; }
-    public double Latitude { get; }
-    public double Longitude { get; }
+    public string Address { get; private set; }
+
+    public double Latitude { get; private set; }
+
+    public double Longitude { get; private set; }
+
+#pragma warning disable CS8618
+    private Location() { }
+#pragma warning restore CS8618
 
     private Location(string name, string address, double latitude, double longitude)
     {

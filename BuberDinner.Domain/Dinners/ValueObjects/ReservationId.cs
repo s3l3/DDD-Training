@@ -6,6 +6,8 @@ public class ReservationId : ValueObject
 {
     public Guid Value { get; }
 
+    private ReservationId() { }
+
     private ReservationId(Guid value)
     {
         Value = value;

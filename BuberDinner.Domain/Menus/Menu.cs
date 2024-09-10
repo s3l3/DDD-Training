@@ -8,27 +8,8 @@ using BuberDinner.Domain.MenuReviews.ValueObjects;
 
 namespace BuberDinner.Domain.Menus;
 
-public sealed class Menu : AggregateRoot<MenuId>
+public sealed class Menu : AggregateRoot<MenuId, Guid>
 {
-    private Menu(
-        MenuId id,
-        string name,
-        string description,
-        AverageRating averageRating,
-        HostId hostId,
-        List<MenuSection> menuSections,
-        DateTime createdDateTime,
-        DateTime updatedDateTime) : base(id)
-    {
-        Name = name;
-        Description = description;
-        AverageRating = averageRating;
-        HostId = hostId;
-        _sections = menuSections;
-        CreatedDateTime = createdDateTime;
-        UpdatedDateTime = updatedDateTime;
-    }
-
     private readonly List<MenuSection> _sections = new();
     private readonly List<DinnerId> _dinnerIds = new();
     private readonly List<MenuReviewId> _menuReviewIds = new();
@@ -51,6 +32,29 @@ public sealed class Menu : AggregateRoot<MenuId>
 
     public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.ToList();
 
+#pragma warning disable CS8618
+    private Menu() { }
+#pragma warning restore CS8618
+
+    private Menu(
+        MenuId id,
+        string name,
+        string description,
+        AverageRating averageRating,
+        HostId hostId,
+        List<MenuSection> menuSections,
+        DateTime createdDateTime,
+        DateTime updatedDateTime) : base(id)
+    {
+        Name = name;
+        Description = description;
+        AverageRating = averageRating;
+        HostId = hostId;
+        _sections = menuSections;
+        CreatedDateTime = createdDateTime;
+        UpdatedDateTime = updatedDateTime;
+    }
+
     public static Menu Create(
         string name,
         string description,
@@ -67,8 +71,4 @@ public sealed class Menu : AggregateRoot<MenuId>
             DateTime.UtcNow,
             DateTime.UtcNow);
     }
-
-#pragma warning disable CS8618
-    private Menu() { }
-#pragma warning restore CS8618
 }
