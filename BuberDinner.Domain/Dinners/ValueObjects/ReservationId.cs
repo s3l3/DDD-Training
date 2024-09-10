@@ -18,6 +18,11 @@ public class ReservationId : ValueObject
         return new ReservationId(Guid.NewGuid());
     }
 
+    public static ReservationId Create(Guid value)
+    {
+        return new ReservationId(value);
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

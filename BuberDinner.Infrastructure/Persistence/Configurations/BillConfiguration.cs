@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BuberDinner.Infrastructure.Persistence.Configurations;
 
-internal sealed class BillsConfiguration : IEntityTypeConfiguration<Bill>
+internal sealed class BillConfiguration : IEntityTypeConfiguration<Bill>
 {
     public void Configure(EntityTypeBuilder<Bill> builder)
     {
