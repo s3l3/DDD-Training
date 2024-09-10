@@ -18,8 +18,14 @@ public sealed class DinnerId : AggregateRootId<Guid>
         return new DinnerId(Guid.NewGuid());
     }
 
+    public static DinnerId Create(Guid value)
+    {
+        return new DinnerId(value);
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }
+
 }

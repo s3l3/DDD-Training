@@ -57,5 +57,4 @@ public class Bill : AggregateRoot<BillId, Guid>
             DateTime.UtcNow,
             DateTime.UtcNow);
     }
-
 }

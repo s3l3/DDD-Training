@@ -18,6 +18,11 @@ public class BillId : AggregateRootId<Guid>
         return new BillId(Guid.NewGuid());
     }
 
+    public static AggregateRootId<Guid> Create(Guid value)
+    {
+        return new BillId(value);
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
