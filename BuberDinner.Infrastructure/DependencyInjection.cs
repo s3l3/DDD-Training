@@ -37,7 +37,7 @@ public static class DependencyInjection
     private static IServiceCollection AddPersistance(this IServiceCollection services)
     {
         services.AddDbContext<BubberDinnerDbContext>(options => options.UseMySQL(CONNECTION_STRING));
-        services.AddScoped<IUserRepository, InMemoryUserRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMenuRepository, MenuRepository>();
 
         return services;
