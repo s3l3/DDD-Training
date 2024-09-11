@@ -18,8 +18,14 @@ public sealed class RatingId : ValueObject
         return new RatingId(Guid.NewGuid());
     }
 
+    public static RatingId Create(Guid value)
+    {
+        return new RatingId(value);
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }
+
 }

@@ -103,6 +103,33 @@ namespace BuberDinner.Infrastructure.Migrations
                     b.ToTable("Dinners", (string)null);
                 });
 
+            modelBuilder.Entity("BuberDinner.Domain.Guests.Guest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("ProfileImage")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Guests", (string)null);
+                });
+
             modelBuilder.Entity("BuberDinner.Domain.Menus.Menu", b =>
                 {
                     b.Property<Guid>("Id")
@@ -254,8 +281,257 @@ namespace BuberDinner.Infrastructure.Migrations
                     b.Navigation("Reservations");
                 });
 
+            modelBuilder.Entity("BuberDinner.Domain.Guests.Guest", b =>
+                {
+                    b.OwnsMany("BuberDinner.Domain.Bills.ValueObjects.BillId", "BillIds", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("char(36)")
+                                .HasColumnName("BillId");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestBillIds", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsMany("BuberDinner.Domain.Guests.Entities.RatingEntity", "Ratings", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<DateTime>("CreatedDateTime")
+                                .HasColumnType("datetime(6)");
+
+                            b1.Property<Guid>("DinnerId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<Guid>("HostId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<int>("RatingValue")
+                                .HasColumnType("int");
+
+                            b1.Property<DateTime>("UpdatedDateTime")
+                                .HasColumnType("datetime(6)");
+
+                            b1.HasKey("Id", "GuestId");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestRatings", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsOne("BuberDinner.Domain.Common.ValueObjects.AverageRating", "AverageRating", b1 =>
+                        {
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<int>("NumRatings")
+                                .HasColumnType("int");
+
+                            b1.Property<double>("Value")
+                                .HasColumnType("double");
+
+                            b1.HasKey("GuestId");
+
+                            b1.ToTable("Guests");
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsMany("BuberDinner.Domain.MenuReviews.ValueObjects.MenuReviewId", "MenuReviewIds", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("char(36)")
+                                .HasColumnName("MenuReviewId");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestMenuReviewIds", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsMany("BuberDinner.Domain.Dinners.ValueObjects.DinnerId", "PastDinnerIds", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("char(36)")
+                                .HasColumnName("DinnerId");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestPastDinnerIds", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsMany("BuberDinner.Domain.Dinners.ValueObjects.DinnerId", "PendingDinnerIds", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("char(36)")
+                                .HasColumnName("DinnerId");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestPendingDinnerIds", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.OwnsMany("BuberDinner.Domain.Dinners.ValueObjects.DinnerId", "UpcomingDinnerIds", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            b1.Property<Guid>("GuestId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("char(36)")
+                                .HasColumnName("DinnerId");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("GuestId");
+
+                            b1.ToTable("GuestUpcomingDinnerIds", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GuestId");
+                        });
+
+                    b.Navigation("AverageRating")
+                        .IsRequired();
+
+                    b.Navigation("BillIds");
+
+                    b.Navigation("MenuReviewIds");
+
+                    b.Navigation("PastDinnerIds");
+
+                    b.Navigation("PendingDinnerIds");
+
+                    b.Navigation("Ratings");
+
+                    b.Navigation("UpcomingDinnerIds");
+                });
+
             modelBuilder.Entity("BuberDinner.Domain.Menus.Menu", b =>
                 {
+                    b.OwnsMany("BuberDinner.Domain.Menus.Entites.MenuSection", "Sections", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("char(36)")
+                                .HasColumnName("MenuSectionId");
+
+                            b1.Property<Guid>("MenuId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<string>("Description")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("varchar(100)");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("varchar(100)");
+
+                            b1.HasKey("Id", "MenuId");
+
+                            b1.HasIndex("MenuId");
+
+                            b1.ToTable("MenuSections", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("MenuId");
+
+                            b1.OwnsMany("BuberDinner.Domain.Menus.Entites.MenuItem", "Items", b2 =>
+                                {
+                                    b2.Property<Guid>("Id")
+                                        .ValueGeneratedOnAdd()
+                                        .HasColumnType("char(36)")
+                                        .HasColumnName("MenuItemId");
+
+                                    b2.Property<Guid>("MenuSectionId")
+                                        .HasColumnType("char(36)");
+
+                                    b2.Property<Guid>("MenuId")
+                                        .HasColumnType("char(36)");
+
+                                    b2.Property<string>("Description")
+                                        .IsRequired()
+                                        .HasMaxLength(100)
+                                        .HasColumnType("varchar(100)");
+
+                                    b2.Property<string>("Name")
+                                        .IsRequired()
+                                        .HasMaxLength(100)
+                                        .HasColumnType("varchar(100)");
+
+                                    b2.HasKey("Id", "MenuSectionId", "MenuId");
+
+                                    b2.HasIndex("MenuSectionId", "MenuId");
+
+                                    b2.ToTable("MenuItems", (string)null);
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("MenuSectionId", "MenuId");
+                                });
+
+                            b1.Navigation("Items");
+                        });
+
                     b.OwnsOne("BuberDinner.Domain.Common.ValueObjects.AverageRating", "AverageRating", b1 =>
                         {
                             b1.Property<Guid>("MenuId")
@@ -319,70 +595,6 @@ namespace BuberDinner.Infrastructure.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("MenuId");
-                        });
-
-                    b.OwnsMany("BuberDinner.Domain.Menus.Entites.MenuSection", "Sections", b1 =>
-                        {
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("char(36)")
-                                .HasColumnName("MenuSectionId");
-
-                            b1.Property<Guid>("MenuId")
-                                .HasColumnType("char(36)");
-
-                            b1.Property<string>("Description")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("varchar(100)");
-
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("varchar(100)");
-
-                            b1.HasKey("Id", "MenuId");
-
-                            b1.HasIndex("MenuId");
-
-                            b1.ToTable("MenuSections", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("MenuId");
-
-                            b1.OwnsMany("BuberDinner.Domain.Menus.Entites.MenuItem", "Items", b2 =>
-                                {
-                                    b2.Property<Guid>("Id")
-                                        .ValueGeneratedOnAdd()
-                                        .HasColumnType("char(36)")
-                                        .HasColumnName("MenuItemId");
-
-                                    b2.Property<Guid>("MenuSectionId")
-                                        .HasColumnType("char(36)");
-
-                                    b2.Property<Guid>("MenuId")
-                                        .HasColumnType("char(36)");
-
-                                    b2.Property<string>("Description")
-                                        .IsRequired()
-                                        .HasMaxLength(100)
-                                        .HasColumnType("varchar(100)");
-
-                                    b2.Property<string>("Name")
-                                        .IsRequired()
-                                        .HasMaxLength(100)
-                                        .HasColumnType("varchar(100)");
-
-                                    b2.HasKey("Id", "MenuSectionId", "MenuId");
-
-                                    b2.HasIndex("MenuSectionId", "MenuId");
-
-                                    b2.ToTable("MenuItems", (string)null);
-
-                                    b2.WithOwner()
-                                        .HasForeignKey("MenuSectionId", "MenuId");
-                                });
-
-                            b1.Navigation("Items");
                         });
 
                     b.Navigation("AverageRating")
