@@ -163,6 +163,42 @@ namespace BuberDinner.Infrastructure.Migrations
                     b.ToTable("Hosts", (string)null);
                 });
 
+            modelBuilder.Entity("BuberDinner.Domain.MenuReviews.MenuReview", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("DinnerId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("GuestId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("HostId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("MenuId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MenuReviews", (string)null);
+                });
+
             modelBuilder.Entity("BuberDinner.Domain.Menus.Menu", b =>
                 {
                     b.Property<Guid>("Id")
