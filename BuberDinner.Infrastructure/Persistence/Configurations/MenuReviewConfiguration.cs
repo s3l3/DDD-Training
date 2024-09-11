@@ -14,10 +14,10 @@ public class MenuReviewConfiguration : IEntityTypeConfiguration<MenuReview>
 {
     public void Configure(EntityTypeBuilder<MenuReview> builder)
     {
-        CreateMenuReviewsTableConfiguration(builder);
+        ConfigureMenuReviewsTable(builder);
     }
 
-    private void CreateMenuReviewsTableConfiguration(EntityTypeBuilder<MenuReview> builder)
+    private void ConfigureMenuReviewsTable(EntityTypeBuilder<MenuReview> builder)
     {
         builder
             .ToTable("MenuReviews");
