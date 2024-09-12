@@ -1,3 +1,6 @@
+using System.Security.Cryptography;
+using System.Text;
+
 using BuberDinner.Domain.Common.Models;
 
 namespace BuberDinner.Domain.Hosts.ValueObjects;
@@ -25,7 +28,15 @@ public sealed class HostId : AggregateRootId<Guid>
 
     public static HostId Create(string value)
     {
-        return Create(Guid.Parse(value));
+        Guid result;
+
+        using (MD5 md5 = MD5.Create())
+        {
+            byte[] hash = md5.ComputeHash(Encoding.UTF8.GetBytes(value));
+            result = new Guid(hash);
+        }
+
+        return Create(result);
     }
 
     public override IEnumerable<object> GetEqualityComponents()

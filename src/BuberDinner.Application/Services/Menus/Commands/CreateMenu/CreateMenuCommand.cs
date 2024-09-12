@@ -11,11 +11,11 @@ public record CreateMenuCommand(
     string HostId,
     string Name,
     string Description,
-    List<MenuSectionCommand> Sections) : IRequest<ErrorOr<Menu>>;
-public record MenuSectionCommand(
+    List<CreateMenuSectionCommand> Sections) : IRequest<ErrorOr<Menu>>;
+public record CreateMenuSectionCommand(
     string Name,
     string Description,
-    List<MenuItemCommand> Items);
-public record MenuItemCommand(
+    List<CreateMenuItemCommand> Items);
+public record CreateMenuItemCommand(
     string Name,
     string Description);
